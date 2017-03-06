@@ -1,0 +1,40 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Azure ML Image Quantization</title>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Color quantization</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="#">Upload File</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="footer">
+        {% block footer %}
+        <div class="container col-md-6">
+            &copy; Copyright 2017 by <a href="https://github.com/mrcabellom">Rodrigo Cabello</a>.       
+        </div>
+        <div class="pull-right">
+            <img src="{{ url_for('static', filename='mad_nug.jpeg') }}" height="60" />
+        </div>      
+        {% endblock %}
+    </div>
+    {% block scripts %}
+    <script src="{{ url_for('static', filename='jquery-3.1.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+    {% endblock %}
+</body>
+</html>

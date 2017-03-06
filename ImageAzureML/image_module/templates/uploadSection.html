@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('image.static', filename='file.css') }}">
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading"><h1>Color Quantization using K-Means</h1></div>
+        <div class="panel-body">
+            <p>
+                Select a csv dataset and set the number of colors and the number of iterations. Click Apply filter to process the image.
+            </p>
+        </div>
+    </div>
+    <div class="fileupload fileupload-new" data-provides="fileupload">
+        <span class="btn btn-primary btn-file">
+            <span class="fileupload-new">Select file</span>
+            <input id="datasetupload" type="file" />
+        </span>
+    </div>
+    <div class="row mt-1">
+        <div class="col-md-6 info-section image-preview hidden">
+            <h3>Image <span class="label label-default">Original</span></h3>
+            <div class="row col-md-8">
+                <img id="previewimg" class="img-thumbnail" width="300" height="300" />
+            </div>
+            <div class="container row col-md-4 box">
+                <div class="form-group">
+                    <label for="centroids">Centroids:</label>
+                    <input type="number" class="form-control" id="centroids">
+                </div>
+                <div class="form-group">
+                    <label for="iter">Iterations:</label>
+                    <input type="number" class="form-control" id="iter">
+                </div>
+                <input id="datasefileid" type="hidden" class="form-control" />
+                <button id="applyFilter" type="button" class="btn btn-default">Apply Filter!</button>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-2 hidden info-section status">
+                    <i class="fa fa-refresh fa-spin" style="font-size:24px"></i>
+                    <h4><span class="label label-primary" id="statusText">Running</span></h4>
+                </div>
+                <div class="col-md-8 info-section hidden result-image">
+                    <h3>Image <span class="label label-default">Applied Filter</span></h3>
+                    <img id="filteredImage" class="img-thumbnail"  width="300" height="300"/>
+                </div>
+            </div>          
+        </div>
+    </div>
+</div>
+{% endblock %}
+{%block scripts %}
+    {{super()}}
+    <script src="{{ url_for('image.static', filename='imageProcess.js') }}"></script>
+{% endblock %}
