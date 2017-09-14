@@ -1,19 +1,20 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <link rel="stylesheet" href="{{ url_for('image.static', filename='file.css') }}">
 <div class="container">
     <div class="panel panel-default">
-        <div class="panel-heading"><h1>Color Quantization using K-Means</h1></div>
+        <div class="panel-heading">
+            <h1>Color Quantization using K-Means</h1>
+        </div>
         <div class="panel-body">
             <p>
-                Select a csv dataset and set the number of colors and the number of iterations. Click Apply filter to process the image.
+                Select an image and set the number of colors and the number of iterations. Click Apply filter to process the image.
             </p>
         </div>
     </div>
     <div class="fileupload fileupload-new" data-provides="fileupload">
         <span class="btn btn-primary btn-file">
             <span class="fileupload-new">Select file</span>
-            <input id="datasetupload" type="file" />
+        <input id="datasetupload" type="file" />
         </span>
     </div>
     <div class="row mt-1">
@@ -31,7 +32,7 @@
                     <label for="iter">Iterations:</label>
                     <input type="number" class="form-control" id="iter">
                 </div>
-                <input id="datasefileid" type="hidden" class="form-control" />
+                <input id="datasetfileid" type="hidden" class="form-control" />
                 <button id="applyFilter" type="button" class="btn btn-default">Apply Filter!</button>
             </div>
         </div>
@@ -43,14 +44,25 @@
                 </div>
                 <div class="col-md-8 info-section hidden result-image">
                     <h3>Image <span class="label label-default">Applied Filter</span></h3>
-                    <img id="filteredImage" class="img-thumbnail"  width="300" height="300"/>
+                    <img id="filteredImage" class="img-thumbnail" width="300" height="300" />
                 </div>
-            </div>          
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="color-section hidden">
+            <h3>Color Quantization</h3>
         </div>
     </div>
 </div>
-{% endblock %}
-{%block scripts %}
-    {{super()}}
-    <script src="{{ url_for('image.static', filename='imageProcess.js') }}"></script>
+<script id="colorQuantization" type="text/template">
+    <% _.each(imagePaths, function(item, index) { %>
+        <div class="col-md-4 info-section result-image">
+            <h3>Image <span class="label label-default">Color Quantization <%= index + 1 %></span></h3>
+            <img src="<%= item %>" id="filteredImage" class="img-thumbnail" width="300" height="300" />
+        </div>
+        <% }) %>
+</script>
+{% endblock %} {%block scripts %} {{super()}}
+<script src="{{ url_for('image.static', filename='imageProcess.js') }}"></script>
 {% endblock %}

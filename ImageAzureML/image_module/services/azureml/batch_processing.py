@@ -1,4 +1,4 @@
-import urllib2
+import urllib
 import json
 from flask import current_app as app
 from image_module.services.azureml.azureml_ws_info import AzureMlWsInfo
@@ -20,38 +20,38 @@ def init_job_batch(dataset_file, centroids, iterations):
         'Content-Type':'application/json',
         'Authorization':('Bearer ' + app.config['API_KEY'])
     }
-    print 'Submitting the job...'
+    print('Submitting the job...')
 
-    req = urllib2.Request(app.config['URL_BATCH'] + '?api-version=2.0', body, headers)
+    req = urllib.request.Request(app.config['URL_BATCH'] + '?api-version=2.0', body, headers)
 
     try:
-        response = urllib2.urlopen(req)
-    except urllib2.HTTPError, error:
+        response = urllib.request.urlopen(req)
+    except urllib.error.HTTPError as error:
         return json.loads(error.read())
-    print 'Starting the job...'
-    result = response.read()
+    print('Starting the job...')
+    result = response.read().decode('utf-8')
     job_id = result[1:-1]
-    req = urllib2.Request(
+    req = urllib.request.Request(
         app.config['URL_BATCH'] + '/' + job_id + '/start?api-version=2.0',
         str.encode(json.dumps({})),
         headers
     )
 
     try:
-        response = urllib2.urlopen(req)
-    except urllib2.HTTPError, error:
+        response = urllib.request.urlopen(req)
+    except urllib.error.HTTPError as error:
         return json.loads(error.read())
 
     return job_id
 
 def get_job_status(job_id):
     url_status = app.config['URL_BATCH'] + '/' + job_id + '?api-version=2.0'
-    print 'Checking the job status...'
-    req = urllib2.Request(url_status, headers={'Authorization':('Bearer ' + app.config['API_KEY'])})
+    print('Checking the job status...')
+    req = urllib.request.Request(url_status, headers={'Authorization':('Bearer ' + app.config['API_KEY'])})
 
     try:
-        response = urllib2.urlopen(req)
-    except urllib2.HTTPError, error:
+        response = urllib.request.urlopen(req)
+    except urllib.error.HTTPError as error:
         return json.loads(error.read())
 
     return response.read()

@@ -4,7 +4,7 @@ import uuid
 from flask import url_for
 
 def get_uuid_file_name(extension):
-    return '{}.{}'.format(uuid.uuid4(), extension)
+    return '{}{}'.format(uuid.uuid4(), extension)
 
 def save_temp_file(folder, request_file):
     temp_file = get_uuid_file_name(os.path.splitext(request_file.filename)[1])
@@ -23,3 +23,9 @@ def get_static_temp_for(folder, extension):
 
 def get_url_static_for(file_name):
     return url_for('image.static', filename=file_name)
+
+def get_url_static_for_files(temporal_files):
+    files = []
+    for x in range(0,len(temporal_files)):
+        files.append(url_for('image.static', filename=temporal_files[x].name))
+    return files

@@ -28,13 +28,14 @@
             &copy; Copyright 2017 by <a href="https://github.com/mrcabellom">Rodrigo Cabello</a>.       
         </div>
         <div class="pull-right">
-            <img src="{{ url_for('static', filename='mad_nug.jpeg') }}" height="60" />
+            <img src="{{ url_for('static', filename='plainconcepts.png') }}" height="60" />
         </div>      
         {% endblock %}
     </div>
     {% block scripts %}
     <script src="{{ url_for('static', filename='jquery-3.1.1.min.js') }}"></script>
     <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='underscore.min.js') }}"></script>
     {% endblock %}
 </body>
 </html>
